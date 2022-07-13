@@ -1,0 +1,25 @@
+<mat-card class="form-card">
+    <mat-card-title>Créez un Nouveau Post :)</mat-card-title>
+
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Nom d'utilisateur</mat-label>
+        <input type="text" matInput formControlName="username">
+        <mat-error>Ce champs est requis</mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field appearance="fill">
+        <mat-label>Titre</mat-label>
+        <input type="text" matInput formControlName="title">
+        <mat-error>Ce champs est requis</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea class="form-control" id="description" matInput rows="5" formControlName="description"></textarea>
+        <mat-error>Ce champs est requis</mat-error>
+    </mat-form-field>
+
+    <button mat-flat-button > Preview </button>
+    <button mat-flat-button > Ajoutez Une Image </button>
+</mat-card>

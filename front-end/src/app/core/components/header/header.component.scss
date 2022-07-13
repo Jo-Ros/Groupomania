@@ -1,0 +1,10 @@
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+
+    ul {
+        display: flex;
+        gap: 3em;
+        list-style-type: none;
+    }
+}
