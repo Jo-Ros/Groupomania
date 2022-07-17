@@ -1,4 +1,4 @@
-<mat-card class="form-card">
+<mat-card class="form-card" [formGroup]="postForm">
     <mat-card-title>Créez un Nouveau Post :)</mat-card-title>
 
     <!-- <mat-form-field appearance="fill">
@@ -9,17 +9,33 @@
 
     <mat-form-field appearance="fill">
         <mat-label>Titre</mat-label>
-        <input type="text" matInput formControlName="title">
+        <input type="text" matInput formControlName="postTitle">
         <mat-error>Ce champs est requis</mat-error>
     </mat-form-field>
-
 
     <mat-form-field appearance="fill">
         <mat-label>Description</mat-label>
-        <textarea class="form-control" id="description" matInput rows="5" formControlName="description"></textarea>
+        <textarea class="form-control" id="description" matInput rows="5" formControlName="postText"></textarea>
         <mat-error>Ce champs est requis</mat-error>
     </mat-form-field>
 
-    <button mat-flat-button > Preview </button>
-    <button mat-flat-button > Ajoutez Une Image </button>
+    <button mat-flat-button type="submit" (click)="onSubmitForm()"> Preview </button>
+
+    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+    <div class="file-upload">
+        {{ fileName || 'No file hasBeen uploaded yet'}}
+    </div>
+
+    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+    </button>
+
+    
+</mat-card>
+
+<mat-card class="preview-card" *ngIf="postPreview$ | async as post">
+    <h3>{{ post.postTitle}}</h3>
+    <p>{{ post.postText}}</p>
+    <img [src]="imagePreview" width="50px">
+    <button type="submit" mat-mini-fab color="primary" (click)="onSubmitForm()">Hello</button>
 </mat-card>

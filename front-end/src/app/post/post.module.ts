@@ -7,6 +7,8 @@ import { PostsListComponent } from './components/posts-list/posts-list.component
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PostService } from './post.service';
 
 
 @NgModule({
@@ -19,7 +21,11 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     PostRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
+  ],
+  providers: [
+    PostService
   ]
 })
 export class PostModule { }

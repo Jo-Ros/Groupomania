@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { switchMap, tap } from 'rxjs';
 import { AuthService } from '../../auth.service';
 
@@ -17,7 +18,8 @@ export class SignupComponent implements OnInit {
   passwordCtrl!: FormControl;
 
   constructor(private formBuilder: FormBuilder,
-              private auth: AuthService) { }
+              private auth: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.initSignUpForm();

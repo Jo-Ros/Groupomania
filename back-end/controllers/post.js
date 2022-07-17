@@ -8,7 +8,7 @@ exports.getAllPosts = async (req, res, next) => {
             const posts = await Post.find();
             if(!posts) return res.status(400).json({ error: 'Can Not Find Any Post!' });
             res.status(200).json(posts);
-        } 
+        }
         catch (err) {
             console.error(`Error has occured: ${err}`);
             res.status(500).json({ message: `Error has occured: ${err}` });

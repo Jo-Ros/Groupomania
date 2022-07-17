@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit {
           this.loginForm.reset();
           this.router.navigateByUrl('/');
           console.log('User Has Been connected');
+          console.log('UserId:    ' + this.auth.userId);
+          console.log('Token:         ' + this.auth.token);
         }
       })
     ).subscribe()
