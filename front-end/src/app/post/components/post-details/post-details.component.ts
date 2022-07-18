@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { BehaviorSubject, map, Observable, switchMap, take, tap } from 'rxjs';
+
+import { AuthService } from 'src/app/auth/auth.service';
+import { Post } from '../../models/post.model';
+import { PostService } from '../../post.service';
 
 @Component({
   selector: 'app-post-details',
@@ -7,9 +13,72 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostDetailsComponent implements OnInit {
 
-  constructor() { }
+  buttonText!: string;
+  userId!: string;
+  liked$ = new BehaviorSubject<boolean>(false);
+  post$!: Observable<Post>;
+  isAuthor$ = new BehaviorSubject<boolean>(false);
+
+  constructor(private postService: PostService,
+              private authService: AuthService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.userId = this.authService.getUserId();
+
+    const postId = this.route.snapshot.params['id'];
+    this.post$ = this.postService.getPostById(postId).pipe(
+      tap(post => {
+        if (post.userId === this.userId) {
+          this.isAuthor$.next(true);
+        }
+        if (post.usersIdLiked.find(user => user === this.userId)) {
+          this.liked$.next(true);
+          this.buttonText = 'Unlike';
+        } 
+        else {
+          this.buttonText = 'Like';
+        }
+      })
+    )
+  }
+  
+  onLike(id: string) {
+    if (this.liked$) {
+      this.postService.likePost(id, this.userId).pipe(
+        // take(1),
+        tap(() => {
+          this.buttonText = 'Unlike'
+          this.liked$.next(true)
+        })
+      ).subscribe();
+      }
+      else {
+        this.postService.likePost(id, this.userId).pipe(
+          // take(1),
+          tap(() => {
+            this.buttonText = 'Like'
+            this.liked$.next(false)
+          })
+          ).subscribe()
+        }
   }
 
+  onDelete(id: string) {   
+      this.postService.deletePost(id).pipe(
+        tap(() => this.router.navigate(['/']))
+      ).subscribe()
+  }
 }
+
+      // .pipe(
+      //   tap(post => {
+      //     if (post.usersIdLiked.find(user => user === this.userId)) {
+      //       this.liked = true
+      //     }
+      //     else {
+      //       this.liked = false
+      //     }
+      //   })
+      // )

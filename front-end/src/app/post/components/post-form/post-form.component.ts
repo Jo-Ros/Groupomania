@@ -50,8 +50,9 @@ export class PostFormComponent implements OnInit {
     )
   }
 
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0]
+  onFileSelected(event: Event) {
+    //const file: File = event.target.files[0]
+    const file: File = (event.target as HTMLInputElement).files![0];
 
     this.postForm.get('image')!.setValue(file);
     this.postForm.updateValueAndValidity();
@@ -73,13 +74,9 @@ export class PostFormComponent implements OnInit {
     newPost.postText = this.postForm.get('postText')!.value;
     newPost.userId = this.auth.getUserId();
 
-    console.log(this.postForm.get('image')!.value);
-    console.log(newPost.userId);
-    console.log(this.auth.getToken());
-
     this.postService.createPost(newPost, this.postForm.get('image')!.value).pipe(
       tap(() => {
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/');
       })
     ).subscribe();
   }

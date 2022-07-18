@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Post } from '../../models/post.model';
+import { PostService } from '../../post.service';
 
 @Component({
   selector: 'app-posts-list',
@@ -7,9 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostsListComponent implements OnInit {
 
-  constructor() { }
+  posts$!: Observable<Post[]>;
+
+  constructor(private postService: PostService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.posts$ = this.postService.getAllPosts();
+  }
+
+  toPostDetails(id: string) {
+    this.router.navigateByUrl(`/${id}`)
+  }
+
+  logImg(img: string) {
+    console.log(img);
   }
 
 }
