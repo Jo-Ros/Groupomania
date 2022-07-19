@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -24,11 +23,11 @@ export class PostFormComponent implements OnInit {
 
   fileName = '';
   imagePreview!: string;
+  image!: File;
 
 
 
   constructor(private formBuilder: FormBuilder, 
-              private http: HttpClient,
               private auth: AuthService,
               private postService: PostService,
               private router: Router) { }
@@ -51,7 +50,6 @@ export class PostFormComponent implements OnInit {
   }
 
   onFileSelected(event: Event) {
-    //const file: File = event.target.files[0]
     const file: File = (event.target as HTMLInputElement).files![0];
 
     this.postForm.get('image')!.setValue(file);
@@ -74,7 +72,13 @@ export class PostFormComponent implements OnInit {
     newPost.postText = this.postForm.get('postText')!.value;
     newPost.userId = this.auth.getUserId();
 
-    this.postService.createPost(newPost, this.postForm.get('image')!.value).pipe(
+    this.image = this.postForm.get('image')!.value;
+
+    const formData = new FormData();
+    formData.append('post', JSON.stringify(newPost));
+    formData.append('image', this.image);
+
+    this.postService.createPost(formData).pipe(
       tap(() => {
         this.router.navigateByUrl('/');
       })

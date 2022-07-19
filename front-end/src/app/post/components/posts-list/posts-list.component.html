@@ -1,10 +1,9 @@
-<div class="container">
+<ng-container class="container">
     <mat-card *ngFor="let post of posts$ | async ">
         <h1>{{post.postTitle}}</h1>
         <p>{{post.postText}}</p>
         <img [src]="post.image" alt="Post Image" width="150px">
-        <p>{{post._id }}</p>
 
         <button mat-button color="primary" (click)="toPostDetails(post._id)">Details et Commentaires</button>
     </mat-card>
-</div>
+</ng-container>

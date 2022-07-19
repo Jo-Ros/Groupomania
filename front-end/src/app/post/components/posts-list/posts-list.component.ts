@@ -24,8 +24,4 @@ export class PostsListComponent implements OnInit {
     this.router.navigateByUrl(`/${id}`)
   }
 
-  logImg(img: string) {
-    console.log(img);
-  }
-
 }

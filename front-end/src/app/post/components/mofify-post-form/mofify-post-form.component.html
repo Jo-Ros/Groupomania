@@ -1,0 +1,29 @@
+<mat-card class="form-card" [formGroup]="postForm">
+
+    <mat-form-field appearance="fill">
+        <mat-label>Titre</mat-label>
+        <input type="text" matInput formControlName="postTitle">
+        <mat-error>Ce champs est requis</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea class="form-control" id="description" matInput rows="5" formControlName="postText"></textarea>
+        <mat-error>Ce champs est requis</mat-error>
+    </mat-form-field>
+
+    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+    <div class="file-upload">
+        {{ fileName || 'No file hasBeen uploaded yet'}}
+    </div>
+
+    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+    </button>
+
+    <img [src]="imagePreview" alt="" width="50px">
+
+    <button mat-button color="primary" (click)="onSubmitForm()" >Modify</button>
+
+    
+</mat-card>

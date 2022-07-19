@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { BehaviorSubject, map, Observable, switchMap, take, tap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { AuthService } from 'src/app/auth/auth.service';
 import { Post } from '../../models/post.model';
@@ -45,24 +45,22 @@ export class PostDetailsComponent implements OnInit {
   }
   
   onLike(id: string) {
-    if (this.liked$) {
+    if (!this.liked$) {
       this.postService.likePost(id, this.userId).pipe(
         // take(1),
         tap(() => {
           this.buttonText = 'Unlike'
-          this.liked$.next(true)
         })
       ).subscribe();
-      }
-      else {
-        this.postService.likePost(id, this.userId).pipe(
-          // take(1),
-          tap(() => {
-            this.buttonText = 'Like'
-            this.liked$.next(false)
-          })
-          ).subscribe()
-        }
+    }
+    else {
+      this.postService.likePost(id, this.userId).pipe(
+        // take(1),
+        tap(() => {
+          this.buttonText = 'Like'
+        })
+      ).subscribe()
+    }
   }
 
   onDelete(id: string) {   
@@ -70,15 +68,8 @@ export class PostDetailsComponent implements OnInit {
         tap(() => this.router.navigate(['/']))
       ).subscribe()
   }
-}
 
-      // .pipe(
-      //   tap(post => {
-      //     if (post.usersIdLiked.find(user => user === this.userId)) {
-      //       this.liked = true
-      //     }
-      //     else {
-      //       this.liked = false
-      //     }
-      //   })
-      // )
+  onEdit(id: string) {
+    this.router.navigate([`${id}/modify`])
+  }
+}

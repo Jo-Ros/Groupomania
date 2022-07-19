@@ -9,6 +9,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PostService } from './post.service';
+import { MofifyPostFormComponent } from './components/mofify-post-form/mofify-post-form.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { PostService } from './post.service';
     PostComponent,
     PostsListComponent,
     PostDetailsComponent,
-    PostFormComponent
+    PostFormComponent,
+    MofifyPostFormComponent
   ],
   imports: [
     CommonModule,
