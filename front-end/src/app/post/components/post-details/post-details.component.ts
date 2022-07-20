@@ -15,6 +15,7 @@ export class PostDetailsComponent implements OnInit {
 
   buttonText!: string;
   userId!: string;
+  numberOfLikes!: number
   liked$ = new BehaviorSubject<boolean>(false);
   post$!: Observable<Post>;
   isAuthor$ = new BehaviorSubject<boolean>(false);
@@ -45,20 +46,16 @@ export class PostDetailsComponent implements OnInit {
   }
   
   onLike(id: string) {
-    if (!this.liked$) {
+    if (this.buttonText === 'Like') {
       this.postService.likePost(id, this.userId).pipe(
         // take(1),
-        tap(() => {
-          this.buttonText = 'Unlike'
-        })
+        tap(() => { this.buttonText = 'Unlike' })
       ).subscribe();
     }
     else {
       this.postService.likePost(id, this.userId).pipe(
         // take(1),
-        tap(() => {
-          this.buttonText = 'Like'
-        })
+        tap(() => { this.buttonText = 'Like' })
       ).subscribe()
     }
   }
