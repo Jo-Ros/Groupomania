@@ -76,10 +76,6 @@ export class MofifyPostFormComponent implements OnInit {
     modifiedPost.postText = this.postForm.get('postText')!.value;
     modifiedPost.userId = this.auth.getUserId();
 
-    
-
-    console.log(modifiedPost);
-
     this.postService.updatePost(modifiedPost, this.postForm.get('image')!.value, this.postId)
     .pipe(
       tap(() => {
@@ -87,5 +83,4 @@ export class MofifyPostFormComponent implements OnInit {
       })
     ).subscribe();
   }
-
 }

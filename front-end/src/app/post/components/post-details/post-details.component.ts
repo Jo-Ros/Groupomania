@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, debounce, Observable, Subject, tap, timer } from 'rxjs';
 
 import { AuthService } from 'src/app/auth/auth.service';
 import { Post } from '../../models/post.model';
@@ -15,8 +15,8 @@ export class PostDetailsComponent implements OnInit {
 
   buttonText!: string;
   userId!: string;
-  numberOfLikes!: number
-  liked$ = new BehaviorSubject<boolean>(false);
+  //numberOfLikes$!: Subject<number>;
+  //liked$ = new BehaviorSubject<boolean>(false);
   post$!: Observable<Post>;
   isAuthor$ = new BehaviorSubject<boolean>(false);
 
@@ -31,11 +31,12 @@ export class PostDetailsComponent implements OnInit {
     const postId = this.route.snapshot.params['id'];
     this.post$ = this.postService.getPostById(postId).pipe(
       tap(post => {
+        // this.numberOfLikes$ = post.usersIdLiked.length
         if (post.userId === this.userId) {
           this.isAuthor$.next(true);
         }
         if (post.usersIdLiked.find(user => user === this.userId)) {
-          this.liked$.next(true);
+          //this.liked$.next(true);
           this.buttonText = 'Unlike';
         } 
         else {
@@ -46,15 +47,14 @@ export class PostDetailsComponent implements OnInit {
   }
   
   onLike(id: string) {
+
     if (this.buttonText === 'Like') {
       this.postService.likePost(id, this.userId).pipe(
-        // take(1),
         tap(() => { this.buttonText = 'Unlike' })
       ).subscribe();
     }
     else {
       this.postService.likePost(id, this.userId).pipe(
-        // take(1),
         tap(() => { this.buttonText = 'Like' })
       ).subscribe()
     }

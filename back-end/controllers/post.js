@@ -5,7 +5,7 @@ const fs = require('fs');
 // ==============
 exports.getAllPosts = async (req, res, next) => {
         try {
-            const posts = await Post.find();
+            const posts = await Post.find().sort({ createdAt: 'desc' });
             if(!posts) return res.status(400).json({ error: 'Can Not Find Any Post!' });
             res.status(200).json(posts);
         }
@@ -23,7 +23,8 @@ exports.createPost = async (req, res, next) => {
         const newPost =  new Post({
             ...postObject,
             image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-            usersIdLiked: []
+            usersIdLiked: [],
+            createdAt: Date.now()
         });
         
         const post = await newPost.save();
