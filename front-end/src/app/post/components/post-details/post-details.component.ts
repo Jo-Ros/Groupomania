@@ -50,7 +50,7 @@ export class PostDetailsComponent implements OnInit {
 
     if (this.buttonText === 'Like') {
       this.postService.likePost(id, this.userId).pipe(
-        tap(() => { this.buttonText = 'Unlike' })
+        tap(() => { this.buttonText = 'Unlike' }),
       ).subscribe();
     }
     else {

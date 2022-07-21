@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, tap } from "rxjs";
+import { environment } from "src/environments/environment";
 import { userModel } from "./models/user.model";
 
 
@@ -26,11 +27,11 @@ export class AuthService {
     }
 
     registerNewUser( formValue: userModel) {
-        return this.http.post<userModel>(`http://localhost:3000/api/auth/signup`, formValue)
+        return this.http.post<userModel>(`${environment.API_URL}/api/auth/signup`, formValue)
     }
 
     loginUser( formValue: userModel ) {
-        return this.http.post<{ userId: string, token: string}>(`http://localhost:3000/api/auth/login`, formValue).pipe(
+        return this.http.post<{ userId: string, token: string}>(`${environment.API_URL}/api/auth/login`, formValue).pipe(
             tap(({ userId, token }) => {
                 this.userId = userId;
                 this.token = token;
