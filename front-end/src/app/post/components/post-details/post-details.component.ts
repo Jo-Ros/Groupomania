@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, debounce, debounceTime, interval, Observable, Subject, take, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, Observable, Subject, tap } from 'rxjs';
 
 import { AuthService } from 'src/app/auth/auth.service';
 import { Post } from '../../models/post.model';
@@ -53,6 +53,7 @@ export class PostDetailsComponent implements OnInit {
       })
     );
 
+    // Prevent Multiple Click On Like
     const likeClickedDebounced = this.likeClicked$.pipe( debounceTime(500));
 
     likeClickedDebounced.subscribe((id: string) => {
@@ -66,7 +67,6 @@ export class PostDetailsComponent implements OnInit {
   }
 
   onLike(id: string) {
-    console.log(this.userRole);
     if (this.buttonText === 'Like') {
       this.postService.likePost(id, this.userId).pipe(
         tap(() => { 

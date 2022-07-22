@@ -93,22 +93,21 @@ exports.deletePost = async (req, res, next) => {
     try {
         const singlePost = await Post.findOne({ _id: req.params.id })
         const filename = singlePost.image.split('/images/')[1];
-    
-        fs.unlink(`images/${filename}`, async () => {
-            const post = await Post.findOne({ _id: req.params.id })
-            if(!post) {
-                return res.status(404).json({ error: new Error('No such post')})
-            }
-            if(post.userId !== req.auth.userId) {
-                return res.status(403).json({ error: new Error('Unauthorized request!')})
-            }
-            
-            if (post.userId === req.auth.userId || req.body.userRole === 'admin'){
+        const post = await Post.findOne({ _id: req.params.id });
+
+        if (post.userId === req.auth.userId || req.auth.userRole === 'Admin') {
+
+            fs.unlink(`images/${filename}`, async () => {
+                if(!post) {
+                    return res.status(404).json({ error: new Error('No such post')})
+                }
+                    
                 await Post.deleteOne({ _id: req.params.id });
                 res.status(200).json({ message: 'Post has been deleted!'});
-            }
-            
-        })
+            })
+        } else {
+            return res.status(403).json({ error: new Error('Unauthorized request!')})
+        }
     }
     catch (err) {
         console.error(`Error has occured: ${err}`);
