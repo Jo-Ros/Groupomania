@@ -15,11 +15,13 @@ export class PostDetailsComponent implements OnInit {
 
   buttonText!: string;
   userId!: string;
+  userRole!: string;
   numberOfLikes!: number;
-  likeClicked$ = new Subject<string>();
-
+  
   post$!: Observable<Post>;
   isAuthor$ = new BehaviorSubject<boolean>(false);
+  isAdmin$ = new BehaviorSubject<boolean>(false);
+  likeClicked$ = new Subject<string>();
 
   constructor(private postService: PostService,
               private authService: AuthService,
@@ -28,15 +30,20 @@ export class PostDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.authService.getUserId();
+    this.userRole = this.authService.getUserRole();
+
+    if(this.userRole === 'Admin') {
+      this.isAdmin$.next(true);
+    }
 
     const postId = this.route.snapshot.params['id'];
     this.post$ = this.postService.getPostById(postId).pipe(
-      tap(post => {
-        this.numberOfLikes = post.usersIdLiked.length;
-
+      tap(post => {    
         if (post.userId === this.userId) {
           this.isAuthor$.next(true);
         }
+
+        this.numberOfLikes = post.usersIdLiked.length;
         if (post.usersIdLiked.find(user => user === this.userId)) {
           this.buttonText = 'Unlike';
         } 
@@ -59,6 +66,7 @@ export class PostDetailsComponent implements OnInit {
   }
 
   onLike(id: string) {
+    console.log(this.userRole);
     if (this.buttonText === 'Like') {
       this.postService.likePost(id, this.userId).pipe(
         tap(() => { 

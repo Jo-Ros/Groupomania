@@ -13,7 +13,7 @@ export class SignupComponent implements OnInit {
 
   signUpForm!: FormGroup;
 
-  //usernameCtrl!: FormControl;
+  usernameCtrl!: FormControl;
   emailCtrl!: FormControl;
   passwordCtrl!: FormControl;
 
@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit {
 
   private initSignUpForm() {
     this.signUpForm = this.formBuilder.group({
-      //username: this.usernameCtrl,
+      username: this.usernameCtrl,
       email: this.emailCtrl,
       password: this.passwordCtrl,
     })
@@ -39,6 +39,7 @@ export class SignupComponent implements OnInit {
       tap(saved => {
         if (saved) {
           this.signUpForm.reset();
+          this.router.navigate(['/']);
           console.log('User Has Been Saved');
         }
       })

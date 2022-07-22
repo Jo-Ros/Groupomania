@@ -7,6 +7,7 @@ exports.signup = async (req, res, next) => {
     try {
         const hash = await bcrypt.hash(req.body.password, 10);
         const user = new User ({
+            username: req.body.username,
             email: req.body.email,
             password: hash
         })
@@ -30,8 +31,9 @@ exports.login = async (req, res, next) => {
 
         res.status(200).json({
             userId: user._id,
+            userRole: user.role,
             token: jsonWebToken.sign(
-                { userId: user._id },
+                { userId: user._id, userRole: user.role },
                 'RANDOM_TOKEN_SECRET',
                 { expiresIn: '24h' }
             )

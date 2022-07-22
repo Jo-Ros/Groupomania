@@ -102,9 +102,12 @@ exports.deletePost = async (req, res, next) => {
             if(post.userId !== req.auth.userId) {
                 return res.status(403).json({ error: new Error('Unauthorized request!')})
             }
-    
-            await Post.deleteOne({ _id: req.params.id });
-            res.status(200).json({ message: 'Post has been deleted!'});
+            
+            if (post.userId === req.auth.userId || req.body.userRole === 'admin'){
+                await Post.deleteOne({ _id: req.params.id });
+                res.status(200).json({ message: 'Post has been deleted!'});
+            }
+            
         })
     }
     catch (err) {
