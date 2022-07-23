@@ -1,6 +1,7 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 const fs = require('fs');
+const { findById } = require('../models/post');
 
 // ==============
 exports.getAllPosts = async (req, res, next) => {
@@ -18,13 +19,16 @@ exports.getAllPosts = async (req, res, next) => {
 // ==============
 exports.createPost = async (req, res, next) => {
     try {
+        const currentUser = await User.findOne({ _id: req.auth.userId });
+        console.log(currentUser);
         const postObject = JSON.parse(req.body.post);
         delete postObject._id;
         const newPost =  new Post({
             ...postObject,
             image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
             usersIdLiked: [],
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            username: currentUser.username
         });
         
         const post = await newPost.save();
@@ -56,30 +60,34 @@ exports.getOnePost = async (req, res, next) => {
 exports.modifyPost = async (req, res, next) => {
     try {
         let postObject;
+        const post = await Post.findOne({ _id: req.params.id })
 
-        if (req.file) {
-            const singlePost = await Post.findOne({ _id: req.params.id });
-            const filename = singlePost.image.split('/images/')[1];
+        if (post.userId === req.auth.userId || req.auth.userRole === 'Admin') {
+            if (req.file) {
+                const filename = singlePost.image.split('/images/')[1];
+            
+                fs.unlink(`images/${filename}`, (err) => {
+                    if(err) throw err;
+                })
         
-            fs.unlink(`images/${filename}`, (err) => {
-                if(err) throw err;
-            })
-    
-            postObject = 
-            {
-                ...JSON.parse(req.body.post),
-                image: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+                postObject = 
+                {
+                    ...JSON.parse(req.body.post),
+                    image: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+                }
             }
+        
+            else {
+                postObject = { ...req.body };
+            }
+        
+            await Post.updateOne(
+                { _id: req.params.id },
+                { ...postObject, _id: req.params.id });
+            res.status(200).json({ message: "Modified Post!" });
+
         }
-    
-        else {
-            postObject = { ...req.body };
-        }
-    
-        await Post.updateOne(
-            { _id: req.params.id },
-            { ...postObject, _id: req.params.id });
-        res.status(200).json({ message: "Modified Post!" });
+
     }
 
     catch (err) {
@@ -91,7 +99,7 @@ exports.modifyPost = async (req, res, next) => {
 // ============== 
 exports.deletePost = async (req, res, next) => {
     try {
-        const singlePost = await Post.findOne({ _id: req.params.id })
+        const singlePost = await Post.findOne({ _id: req.params.id });
         const filename = singlePost.image.split('/images/')[1];
         const post = await Post.findOne({ _id: req.params.id });
 

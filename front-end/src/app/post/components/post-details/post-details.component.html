@@ -1,11 +1,21 @@
-<mat-card *ngIf="post$ | async as post">
-    <h1>{{post.postTitle}}</h1>
-    <p>{{post.postText}}</p>
-    <img [src]="post.image" alt="Post Image" width="150px">
+<mat-card class="post-card" *ngIf="post$ | async as post">
+    <div class="card-left">
+        <img [src]="post.image" alt="Post Image" width="150px">
+    </div>
 
-    <button mat-button color="primary" (click)="onClickLike(post._id)">{{ buttonText }}</button><span>{{ numberOfLikes }}</span>
-    <ng-container *ngIf="(isAuthor$ | async) || (isAdmin$ | async)">
-        <button mat-button color="primary" (click)="onEdit(post._id)" >Modify</button>
-        <button mat-button color="primary" type="button" (click)="onDelete(post._id)">Delete</button>
-    </ng-container>
+    <div class="card-right">
+        <div class="text">
+            <h3>{{post.postTitle}}</h3>
+            <p class="post-text">{{post.postText}}</p>
+        </div>
+
+        <mat-card-actions>
+            <button mat-button color="primary" (click)="onClickLike(post._id)">{{ buttonText }}</button><span>{{ numberOfLikes }}</span>
+            <ng-container *ngIf="(isAuthor$ | async) || (isAdmin$ | async)">
+                <button mat-button color="primary" (click)="onEdit(post._id)" >Modify</button>
+                <button mat-button color="primary" type="button" (click)="onDelete(post._id)">Delete</button>
+            </ng-container>
+        </mat-card-actions>
+    </div>
+
 </mat-card>
