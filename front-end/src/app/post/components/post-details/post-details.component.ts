@@ -43,8 +43,6 @@ export class PostDetailsComponent implements OnInit {
           this.isAuthor$.next(true);
         }
 
-        console.log(post.username);
-
         this.numberOfLikes = post.usersIdLiked.length;
         if (post.usersIdLiked.find(user => user === this.userId)) {
           this.buttonText = 'Unlike';
@@ -56,7 +54,7 @@ export class PostDetailsComponent implements OnInit {
     );
 
     // Prevent Multiple Click On Like
-    const likeClickedDebounced = this.likeClicked$.pipe( debounceTime(500));
+    const likeClickedDebounced = this.likeClicked$.pipe( debounceTime(200));
 
     likeClickedDebounced.subscribe((id: string) => {
       this.onLike(id)

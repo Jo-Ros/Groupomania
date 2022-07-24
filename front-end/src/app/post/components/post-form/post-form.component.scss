@@ -2,8 +2,63 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 3rem;
+    background-color: #151515;
+    color: white;
 }
 
 .file-input {
     display: none;
+}
+
+.preview-card {
+    margin-bottom: 2.5rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    //max-height: 165px;
+    font-family: 'Lato';
+    background-color: rgb(21, 21, 21);
+    color: white;
+
+    .card-top {
+        flex: 1;
+        
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+
+            .circle {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                border: 1px solid rosybrown;
+            }
+        }
+        img {
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+            max-height: 300px;
+            border-radius: 5px 0 0 5px; 
+        }
+    }
+
+    .card-bottom {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+        overflow: scroll;
+
+        h3 {
+            margin-top: 0;
+            font-size: 1rem;
+        }
+
+        .text {
+            font-size: .9rem;
+        }
+    }
 }

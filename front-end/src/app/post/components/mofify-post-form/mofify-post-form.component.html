@@ -1,29 +1,34 @@
-<mat-card class="form-card" [formGroup]="postForm">
+<div class="container">
+    <mat-card class="form-card" [formGroup]="postForm">
+        <img [src]="imagePreview" alt="" width="50px">
 
-    <mat-form-field appearance="fill">
-        <mat-label>Titre</mat-label>
-        <input type="text" matInput formControlName="postTitle">
-        <mat-error>Ce champs est requis</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-        <mat-label>Description</mat-label>
-        <textarea class="form-control" id="description" matInput rows="5" formControlName="postText"></textarea>
-        <mat-error>Ce champs est requis</mat-error>
-    </mat-form-field>
-
-    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-    <div class="file-upload">
-        {{ fileName || 'No file hasBeen uploaded yet'}}
-    </div>
-
-    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
-        <mat-icon>attach_file</mat-icon>
-    </button>
-
-    <img [src]="imagePreview" alt="" width="50px">
-
-    <button mat-button color="primary" (click)="onSubmitForm()" >Modify</button>
-
+        <div class="card-right">
+            <div class="post-text">
+                <mat-form-field appearance="fill">
+                    <mat-label>Titre</mat-label>
+                    <input type="text" matInput formControlName="postTitle">
+                    <mat-error>Ce champs est requis</mat-error>
+                </mat-form-field>
+            
+                <mat-form-field appearance="fill">
+                    <mat-label>Description</mat-label>
+                    <textarea class="form-control" id="description" matInput rows="5" formControlName="postText"></textarea>
+                    <mat-error>Ce champs est requis</mat-error>
+                </mat-form-field>
+            </div>
+        
+            <div class="buttons">
+                <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        
+            <div class="buttons">
+                <button mat-flat-button color="primary" class="upload-btn" (click)="fileUpload.click()">
+                    Changer l'image <mat-icon>add_photo_alternate</mat-icon>
+                </button>
     
-</mat-card>
+                <button mat-flat-button color="primary" (click)="onSubmitForm()" >Modify</button> 
+            </div>  
+            </div>
+        </div>
+    
+    </mat-card>
+</div>

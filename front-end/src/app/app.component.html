@@ -1,5 +1,9 @@
 <app-header></app-header>
+<ng-container *ngIf="isAuth$ | async">
+  <app-side-bar></app-side-bar>
+</ng-container>
 
-<div class="container">
+
+<div class="rooter-container">
   <router-outlet></router-outlet>
 </div>

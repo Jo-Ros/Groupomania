@@ -1,6 +1,17 @@
 mat-toolbar {
     display: flex;
     justify-content: space-between;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 400;
+    
+    img {
+        z-index: 21;
+        max-width: 150px;
+    }
 
     ul {
         display: flex;

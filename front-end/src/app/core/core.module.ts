@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    SideBarComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule,
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    SideBarComponent
   ]
 })
 export class CoreModule { }

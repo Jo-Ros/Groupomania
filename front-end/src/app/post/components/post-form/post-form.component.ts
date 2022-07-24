@@ -84,5 +84,4 @@ export class PostFormComponent implements OnInit {
       })
     ).subscribe();
   }
-
 }

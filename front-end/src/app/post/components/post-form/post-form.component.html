@@ -1,41 +1,43 @@
-<mat-card class="form-card" [formGroup]="postForm">
-    <mat-card-title>Créez un Nouveau Post :)</mat-card-title>
+<div class="container">
+    <mat-card class="form-card" [formGroup]="postForm">
+        <mat-card-title>Créez un Nouveau Post :)</mat-card-title>
 
-    <!-- <mat-form-field appearance="fill">
-        <mat-label>Nom d'utilisateur</mat-label>
-        <input type="text" matInput formControlName="username">
-        <mat-error>Ce champs est requis</mat-error>
-    </mat-form-field> -->
+        <mat-form-field appearance="fill">
+            <mat-label>Titre</mat-label>
+            <input type="text" matInput formControlName="postTitle">
+            <mat-error>Ce champs est requis</mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Titre</mat-label>
-        <input type="text" matInput formControlName="postTitle">
-        <mat-error>Ce champs est requis</mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea class="form-control" id="description" matInput rows="5" formControlName="postText"></textarea>
+            <mat-error>Ce champs est requis</mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Description</mat-label>
-        <textarea class="form-control" id="description" matInput rows="5" formControlName="postText"></textarea>
-        <mat-error>Ce champs est requis</mat-error>
-    </mat-form-field>
+        <!-- <button  type="submit" color="accent" (click)="onSubmitForm()"> Preview </button> -->
 
-    <button mat-flat-button type="submit" (click)="onSubmitForm()"> Preview </button>
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 
-    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-    <div class="file-upload">
-        {{ fileName || 'No file hasBeen uploaded yet'}}
-    </div>
+        <button mat-flat-button color="primary" class="upload-btn" (click)="fileUpload.click()">
+            Ajouter une Image <mat-icon>add_photo_alternate</mat-icon>
+        </button>
 
-    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
-        <mat-icon>attach_file</mat-icon>
-    </button>
+        
+    </mat-card>
 
-    
-</mat-card>
-
-<mat-card class="preview-card" *ngIf="postPreview$ | async as post">
-    <h3>{{ post.postTitle}}</h3>
-    <p>{{ post.postText}}</p>
-    <img [src]="imagePreview" width="50px">
-    <button type="submit" mat-mini-fab color="primary" (click)="onSubmitForm()">Hello</button>
-</mat-card>
+    <mat-card class="preview-card" *ngIf="postPreview$ | async as post">
+        <h2>Aperçu:</h2>
+        <div class="card-top">
+            <div class="user">
+                <div class="circle"></div>
+                <small>{{ post.username }}</small>
+            </div>
+            <img [src]="imagePreview">
+        </div>
+        <div class="card-bottom">
+            <h3>{{ post.postTitle}}</h3>
+            <p *ngIf="post.postText">{{ post.postText | shorten}}</p>
+            <button type="submit" mat-flat-button color="primary" (click)="onSubmitForm()">Envoyer</button>
+        </div>
+    </mat-card>
+</div>

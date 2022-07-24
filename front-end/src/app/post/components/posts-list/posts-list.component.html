@@ -1,16 +1,18 @@
-<ng-container class="container">
-    <mat-card class="post-card" *ngFor="let post of posts$ | async" data-aos="flip-left"
-                                                  data-aos-easing="ease-out-cubic"
-                                                  data-aos-duration="2000">
-        <div class="card-left">
+<div class="container">
+    <h1>Fil d'actualité</h1>
+    <mat-card class="post-card" *ngFor="let post of posts$ | async" data-aos="zoom-in-right">
+        <div class="card-top">
+            <div class="user">
+                <div class="circle"></div>
+                <small>{{ post.username }}</small>
+            </div>
             <img [src]="post.image" alt="Post Image" width="150px">
         </div>
-        <div class="card-right">
+        <div class="card-bottom">
             <h3>{{post.postTitle}}</h3>
-            <p class="text">{{post.postText | shorten: 200 }}</p>
+            <p class="text" *ngIf="post.postText">{{post.postText | shorten: 200 }}</p>
             <button mat-button color="primary" (click)="toPostDetails(post._id)">Details et Commentaires</button>
-            <small>{{ post.username }}</small>
         </div>
 
     </mat-card>
-</ng-container>
+</div>

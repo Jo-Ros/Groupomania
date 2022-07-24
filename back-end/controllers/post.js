@@ -64,7 +64,7 @@ exports.modifyPost = async (req, res, next) => {
 
         if (post.userId === req.auth.userId || req.auth.userRole === 'Admin') {
             if (req.file) {
-                const filename = singlePost.image.split('/images/')[1];
+                const filename = post.image.split('/images/')[1];
             
                 fs.unlink(`images/${filename}`, (err) => {
                     if(err) throw err;
