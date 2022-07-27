@@ -8,7 +8,6 @@ import { CoreModule } from './core/core.module';
 import { PostRoutingModule } from './post/post-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { httpInterceptorProviders } from './auth/interceptors';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 
 @NgModule({

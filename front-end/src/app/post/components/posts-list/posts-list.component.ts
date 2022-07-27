@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import AOS from 'aos'
+import AOS from 'aos';
 
 import { Post } from '../../models/post.model';
 import { PostService } from '../../post.service';

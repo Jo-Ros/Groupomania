@@ -1,7 +1,6 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 const fs = require('fs');
-const { findById } = require('../models/post');
 
 // ==============
 exports.getAllPosts = async (req, res, next) => {
@@ -20,7 +19,7 @@ exports.getAllPosts = async (req, res, next) => {
 exports.createPost = async (req, res, next) => {
     try {
         const currentUser = await User.findOne({ _id: req.auth.userId });
-        console.log(currentUser);
+
         const postObject = JSON.parse(req.body.post);
         delete postObject._id;
         const newPost =  new Post({
@@ -143,32 +142,3 @@ exports.likePost = async (req, res, next) =>  {
     }
 
 };
-// exports.likeDislikePost = async (req, res, next) => {
-//     try {
-//         const currentUser = await User.findOne({ _id: req.body.userId });
-
-//         if (req.body.like === 1) {
-//             await Post.updateOne(
-//                 { _id: req.params.id },
-//                 { $inc: { likes: +1 }, $push: { usersLiked: currentUser._id } }
-//             );
-//             res.status(200).json({ message: "Like Added" });
-//         }
-        
-//         else {
-//             const post = await Post.findOne({ _id: req.params.id });
-    
-//             if (post.usersLiked.includes(req.body.userId)) {
-//                 await Post.updateOne(
-//                     { _id: req.params.id },
-//                     { $inc: { likes: -1 }, $pull: { usersLiked: currentUser._id } }
-//                 );
-//                 res.status(200).json({ message: "Like Deleted" });
-//             }
-//         }
-//     }
-//     catch (err) {
-//         console.error(`Error has occured: ${err}`);
-//         res.status(500).json({ message: `Error has occured: ${err}` })
-//     }
-// }

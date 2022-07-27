@@ -4,13 +4,15 @@ import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    SideBarComponent
+    SideBarComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
   ],
   exports: [
     HeaderComponent,
-    SideBarComponent
+    SideBarComponent,
+    FooterComponent
   ]
 })
 export class CoreModule { }

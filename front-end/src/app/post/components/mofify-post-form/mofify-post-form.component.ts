@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Post } from '../../models/post.model';
 import { PostService } from '../../post.service';
@@ -18,7 +18,6 @@ export class MofifyPostFormComponent implements OnInit {
   titleCtrl!: FormControl;
   textCtrl!: FormControl;
 
-  fileName = '';
   imagePreview!: string;
   postId!: string;
   image!: File;
@@ -53,14 +52,12 @@ export class MofifyPostFormComponent implements OnInit {
   }
 
   onFileSelected(event: Event) {
-    //const file: File = event.target.files[0]
     const file: File = (event.target as HTMLInputElement).files![0];
 
     this.postForm.get('image')!.setValue(file);
     this.postForm.updateValueAndValidity();
     
     if (file) {
-      this.fileName = file.name;
       const reader = new FileReader();
 
       reader.onload = () => {

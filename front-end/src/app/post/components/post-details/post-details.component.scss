@@ -4,7 +4,7 @@
     padding: 0;
     display: flex;
     height: 81vh;
-    background-color: rgb(21, 21, 21);
+    background-color: #0b0b0c;
     color: white;
 
     .card-left {
@@ -27,6 +27,9 @@
         justify-content: space-between;
 
         .user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             margin-bottom: 1rem;
             padding-bottom: .5rem;
             border-bottom: 1px solid rgb(116, 116, 116);
@@ -40,7 +43,7 @@
 
         
         .text {
-            max-height: 70%;
+            max-height: 65%;
             
             h3 {
                 margin-top: 0;

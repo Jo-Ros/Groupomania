@@ -15,7 +15,7 @@ h1 {
     //max-height: 165px;
     font-family: 'Lato';
     //width: 66%;
-    background-color: rgb(21, 21, 21);
+    background-color: #0b0b0c;
     color: white;
 
     .card-top {
@@ -46,6 +46,8 @@ h1 {
     .card-bottom {
         flex: 2;
         padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
 
         h3 {
             margin-top: 0;
@@ -54,6 +56,11 @@ h1 {
 
         .text {
             font-size: .9rem;
+        }
+
+        button {
+            align-self: flex-end;
+            background-color: rgb(109, 83, 83);
         }
     }
 }

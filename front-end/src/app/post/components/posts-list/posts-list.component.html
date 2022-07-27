@@ -11,7 +11,7 @@
         <div class="card-bottom">
             <h3>{{post.postTitle}}</h3>
             <p class="text" *ngIf="post.postText">{{post.postText | shorten: 200 }}</p>
-            <button mat-button color="primary" (click)="toPostDetails(post._id)">Details et Commentaires</button>
+            <button mat-raised-button color="primary" (click)="toPostDetails(post._id)">Voir en Détail</button>
         </div>
 
     </mat-card>

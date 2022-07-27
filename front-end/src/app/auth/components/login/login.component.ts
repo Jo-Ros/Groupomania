@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
+
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -21,10 +22,9 @@ export class LoginComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.initLoginForm();
-  }
+    this.emailCtrl = this.formBuilder.control('', Validators.required);
+    this.passwordCtrl = this.formBuilder.control('', Validators.required);
 
-  private initLoginForm() {
     this.loginForm = this.formBuilder.group({
       email: this.emailCtrl,
       password: this.passwordCtrl,

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jsonWebToken = require('jsonwebtoken');
 
@@ -34,7 +35,7 @@ exports.login = async (req, res, next) => {
             userRole: user.role,
             token: jsonWebToken.sign(
                 { userId: user._id, userRole: user.role },
-                'RANDOM_TOKEN_SECRET',
+                process.env.JWT_SECRET,
                 { expiresIn: '24h' }
             )
         })

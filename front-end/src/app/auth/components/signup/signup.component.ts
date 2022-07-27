@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { switchMap, tap } from 'rxjs';
 import { AuthService } from '../../auth.service';
@@ -22,10 +22,10 @@ export class SignupComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.initSignUpForm();
-  }
+    this.usernameCtrl = this.formBuilder.control('', Validators.required);
+    this.emailCtrl = this.formBuilder.control('', Validators.required);
+    this.passwordCtrl = this.formBuilder.control('', Validators.required);
 
-  private initSignUpForm() {
     this.signUpForm = this.formBuilder.group({
       username: this.usernameCtrl,
       email: this.emailCtrl,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -21,7 +21,6 @@ export class PostFormComponent implements OnInit {
   titleCtrl!: FormControl;
   textCtrl!: FormControl;
 
-  fileName = '';
   imagePreview!: string;
   image!: File;
 
@@ -35,16 +34,13 @@ export class PostFormComponent implements OnInit {
   ngOnInit(): void {
     this.postForm = this.formBuilder.group({
       postTitle: [null],
-      postText: [null],
-      image: [null],
-      
+      postText: [null, Validators.required],
+      image: [null, Validators.required],
     })
 
     this.postPreview$ = this.postForm.valueChanges.pipe(
       map(formValue => ({
         ...formValue,
-        createdDate: new Date(),
-        usersIdLiked: ['']
       }))
     )
   }
@@ -56,7 +52,6 @@ export class PostFormComponent implements OnInit {
     this.postForm.updateValueAndValidity();
     
     if (file) {
-      this.fileName = file.name;
       const reader = new FileReader();
 
       reader.onload = () => {
