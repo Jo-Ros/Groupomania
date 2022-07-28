@@ -9,6 +9,7 @@ import { PostRoutingModule } from './post/post-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [

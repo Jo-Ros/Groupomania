@@ -1,5 +1,5 @@
 <mat-card class="form-card" [formGroup]="loginForm">
-    <mat-card-title>Connectez-Vous :)</mat-card-title>
+    <mat-card-title>Connectez-Vous</mat-card-title>
 
     <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
@@ -14,5 +14,8 @@
         <mat-error>Ce champs est requis</mat-error>
     </mat-form-field>
 
-    <button mat-flat-button color="primary" (click)="onSubmit()"> Se Connecter </button>
+    <button class="login-button" mat-flat-button (click)="onSubmit()"> Se Connecter </button>
 </mat-card>
+
+<p>Pas encore de compte chez Groupomania?</p>
+<button mat-flat-button routerLink="/auth/signup">S'inscrire</button>

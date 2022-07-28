@@ -1,7 +1,10 @@
 <app-header></app-header>
-<ng-container *ngIf="(isAuth$ | async)" && [ngSwitch]="currentBreakpoint">
+
+<ng-container *ngIf="(isAuth$ | async)" [ngSwitch]="currentBreakpoint">
+
   <app-side-bar *ngSwitchCase="'(min-width: 541px)'"></app-side-bar>
   <app-footer *ngSwitchCase="'(max-width: 540px)'"></app-footer>
+
 </ng-container>
 
 

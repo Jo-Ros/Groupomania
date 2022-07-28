@@ -1,10 +1,3 @@
 <mat-toolbar>
     <img src="../../../../assets/images/logo_white.png" alt="">
-
-    <ul>
-        <ng-container *ngIf="!(isAuth$ | async)">
-            <li><a routerLink="/auth/signup"> SignUp</a></li>
-            <li><a routerLink="/auth/login"> LogIn</a></li>
-        </ng-container>
-    </ul>
 </mat-toolbar>

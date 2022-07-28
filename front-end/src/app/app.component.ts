@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
               private breakpointObserver: BreakpointObserver) { }
 
   readonly breakpoint$ = this.breakpointObserver
-    .observe([ ('max-width: 540px'), ('min-width: 541px')])
+    .observe([ '(max-width: 540px)', '(min-width: 541px)'])
     .pipe(
       distinctUntilChanged(),
       tap(value => console.log(value)),
