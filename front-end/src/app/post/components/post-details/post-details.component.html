@@ -1,10 +1,10 @@
 <div class="container">
     <mat-card class="post-card" *ngIf="post$ | async as post">
-        <div class="card-left">
+        <div class="card-img">
             <img [src]="post.image" alt="Post Image" width="150px">
         </div>
     
-        <div class="card-right">
+        <div class="card-infos">
             <div class="text">
                 <div class="user">
                     <div class="circle"></div>

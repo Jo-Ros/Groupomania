@@ -7,7 +7,12 @@
     background-color: #0b0b0c;
     color: white;
 
-    .card-left {
+    @media (max-width: 640px) {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .card-img {
         flex: 1.5;
         
         img {
@@ -18,7 +23,7 @@
         }
     }
 
-    .card-right {
+    .card-infos {
         box-sizing: border-box;
         flex: 2;
         padding: 1rem;
@@ -50,6 +55,7 @@
             }
             .post-text {
                 padding: .5rem;
+                font-weight: 300;
                 overflow: scroll;
                 max-height: 100%;
             }
