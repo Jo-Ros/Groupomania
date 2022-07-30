@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 
@@ -22,13 +22,17 @@ export class LoginComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.emailCtrl = this.formBuilder.control('', Validators.required);
-    this.passwordCtrl = this.formBuilder.control('', Validators.required);
+    this.emailCtrl = this.formBuilder.control('', [Validators.required, Validators.email]);
+    this.passwordCtrl = this.formBuilder.control('', [Validators.required, Validators.minLength(6)]);
 
     this.loginForm = this.formBuilder.group({
       email: this.emailCtrl,
       password: this.passwordCtrl,
     })
+  }
+
+  getCtrlErrorText(ctrl: AbstractControl) {
+    return this.auth.getFormControlErrorText(ctrl);
   }
 
   onSubmit() {
@@ -40,5 +44,4 @@ export class LoginComponent implements OnInit {
       })
     ).subscribe()
   }
-
 }

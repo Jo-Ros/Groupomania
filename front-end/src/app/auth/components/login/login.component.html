@@ -4,14 +4,13 @@
     <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input type="email" matInput formControlName="email">
-        <mat-error>Ce champs est requis</mat-error>
+        <mat-error>{{ getCtrlErrorText(emailCtrl) }}</mat-error>
     </mat-form-field>
-
 
     <mat-form-field appearance="fill">
         <mat-label>Mot de passe</mat-label>
         <input type="password" matInput formControlName="password">
-        <mat-error>Ce champs est requis</mat-error>
+        <mat-error>{{ getCtrlErrorText(passwordCtrl) }}</mat-error>
     </mat-form-field>
 
     <button class="login-button" mat-flat-button (click)="onSubmit()"> Se Connecter </button>

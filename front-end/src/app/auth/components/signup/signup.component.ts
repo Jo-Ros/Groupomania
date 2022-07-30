@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { switchMap, tap } from 'rxjs';
 import { AuthService } from '../../auth.service';
@@ -23,8 +23,8 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.usernameCtrl = this.formBuilder.control('', Validators.required);
-    this.emailCtrl = this.formBuilder.control('', Validators.required);
-    this.passwordCtrl = this.formBuilder.control('', Validators.required);
+    this.emailCtrl = this.formBuilder.control('', [Validators.required, Validators.email]);
+    this.passwordCtrl = this.formBuilder.control('', [Validators.required, Validators.minLength(6)]);
 
     this.signUpForm = this.formBuilder.group({
       username: this.usernameCtrl,
@@ -33,14 +33,16 @@ export class SignupComponent implements OnInit {
     })
   }
 
+  getCtrlErrorText(ctrl: AbstractControl) {
+    return this.auth.getFormControlErrorText(ctrl);
+  }
+
   onSubmit() {
     this.auth.registerNewUser(this.signUpForm.value).pipe(
       switchMap(() => this.auth.loginUser(this.signUpForm.value)),
       tap(saved => {
         if (saved) {
-          this.signUpForm.reset();
           this.router.navigate(['/']);
-          console.log('User Has Been Saved');
         }
       })
     ).subscribe()

@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { AbstractControl } from "@angular/forms";
 import { Router } from "@angular/router";
 import { BehaviorSubject, tap } from "rxjs";
 import { environment } from "src/environments/environment";
@@ -51,5 +52,20 @@ export class AuthService {
         this.token = '';
         this.isAuth$.next(false);
         this.router.navigate(['/auth/login']);
-    }
+    };
+
+    getFormControlErrorText(ctrl: AbstractControl) {
+        if (ctrl.hasError('required')) {
+          return 'Ce champs est requis';
+        }
+        else if (ctrl.hasError('email')) {
+          return 'Merci d\'entrer une adresse mail valide';
+        }
+        else if (ctrl.hasError('minlength')) {
+          return 'Votre mot de passe doit contenir au minimum 6 caractères';
+        }
+        else {
+          return 'Ce champs contient une erreur';
+        }
+      }
 }
