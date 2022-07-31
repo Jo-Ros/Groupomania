@@ -22,8 +22,7 @@ export class AppComponent implements OnInit {
   readonly breakpoint$ = this.breakpointObserver
     .observe([ '(max-width: 540px)', '(min-width: 541px)'])
     .pipe(
-      distinctUntilChanged(),
-      tap(value => console.log(value)),
+      distinctUntilChanged()
     )
   
   ngOnInit(): void {
@@ -35,11 +34,9 @@ export class AppComponent implements OnInit {
   private breakpointChanged() {
     if (this.breakpointObserver.isMatched('(min-width: 541px)')) {
       this.currentBreakpoint = '(min-width: 541px)';
-      console.log(this.currentBreakpoint);
     }
     else if (this.breakpointObserver.isMatched('(max-width: 540px)')) {
       this.currentBreakpoint = '(max-width: 540px)';
-      console.log(this.currentBreakpoint);
     }
   }
 }

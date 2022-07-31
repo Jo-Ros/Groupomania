@@ -13,8 +13,10 @@
         <mat-error>{{ getCtrlErrorText(passwordCtrl) }}</mat-error>
     </mat-form-field>
 
-    <button class="login-button" mat-flat-button (click)="onSubmit()"> Se Connecter </button>
+    <button class="login-button" color="primary" mat-flat-button (click)="onSubmit()"> Se Connecter </button>
 </mat-card>
 
-<p>Pas encore de compte chez Groupomania?</p>
-<button mat-flat-button routerLink="/auth/signup">S'inscrire</button>
+<div class="action-button">
+    <p>Pas encore de compte chez Groupomania?</p>
+    <button mat-flat-button routerLink="/auth/signup">S'inscrire</button>
+</div>

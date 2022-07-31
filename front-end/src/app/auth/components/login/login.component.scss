@@ -4,22 +4,25 @@ mat-card {
     background-color: #0b0b0c;
     color: white;
     font-family: 'Lato';
+    margin-bottom: 3rem;
 }
 
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
     background-color: rgb(35, 35, 35);
 }
 
-.login-button {
-    background: rgb(93,50,30);
-    background: radial-gradient(circle, rgba(93,50,30,1) 0%, rgba(252,178,70,1) 100%);
-    color: white;
-}
+.action-button {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
 
-mat-label {
-    color: rgb(109, 83, 83);
+    p {
+        color: white;
+        margin: 0;
+    }
 }
-
 
 mat-card-title {
     text-align: center;

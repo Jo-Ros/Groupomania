@@ -1,4 +1,30 @@
-.form-card {
+mat-card {
     display: flex;
     flex-direction: column;
+    background-color: #0b0b0c;
+    color: white;
+    font-family: 'Lato';
+    margin-bottom: 3rem;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: rgb(35, 35, 35);
+}
+
+.action-button {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+
+    p {
+        color: white;
+        margin: 0;
+    }
+}
+
+mat-card-title {
+    text-align: center;
+    margin-bottom: 2rem;
 }
