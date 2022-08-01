@@ -22,8 +22,8 @@ Backend:
   
  Frontend:
     Technologies utilisées:
-    Angular;
-    TypeScript;
+    Angular /
+    TypeScript /
 
     Installation:
       cd front-end;
