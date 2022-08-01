@@ -3,17 +3,17 @@ Groupomania
 Réseau Social d'entreprise
 
 Prérequis:
-  Node;
-  Angular;
+  Node /
+  Angular
 
 Clone:
 git clone https://github.com/Jo-Ros/Groupomania.git
 
 Backend:
     Technologies utilisées:
-      NodeJs;
-      Express;
-      MongoDB;
+      NodeJs /
+      Express /
+      MongoDB
 
     Installation:
       cd back-end;
@@ -27,4 +27,5 @@ Backend:
 
     Installation:
       cd front-end;
+      npm install;
       ng serve ( ng serve --o pour ouvrir directement dans votre navigateur par défaut );
