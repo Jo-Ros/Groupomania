@@ -18,6 +18,7 @@ Backend:
     Installation:
       cd back-end;
       npm install;
+      Créez un dossier image;
       nodemon server;
   
  Frontend:
